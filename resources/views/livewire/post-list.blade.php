@@ -1,9 +1,18 @@
 <div class=" px-3 lg:px-7 py-6">
     <div class="flex justify-between items-center border-b border-gray-100">
-        <div class="text-gray-600">
+        <div class="text-gray-600 flex gap-2">
+            {{-- Neu co chon category hoac la dang tim kiem se xuat hien dau X de reset --}}
+            @if ($this->activeCategory || $search)
+                <button class='gray-500 text-xs mr-3' wire:click='clearFilters()'>X</button>
+            @endif
+            @if ($this->activeCategory)
+            <x-badge wire:navigate href="{{route('post.index', ['category' => $this->activeCategory->slug])}}"
+                :textColor='$this->activeCategory->text_color' :bgColor='$this->activeCategory->bg_color'>
+                {{ $this->activeCategory->title }}
+            </x-badge>
+            @endif
             @if ($search)
-                <span class="text-sm">Search results for</span>
-                <span class="text-sm font-semibold">{{ $search }}</span>
+                Containing: {{ $search }}
             @endif
         </div>
         <div class="flex items-center space-x-4 font-light ">

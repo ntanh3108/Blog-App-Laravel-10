@@ -32,9 +32,6 @@ class CategoryResource extends Resource
                 ->minLength(1)
                 ->maxLength(150)
                 ->afterStateUpdated(function(String $operation, $state, Forms\Set $set){
-                    if($operation === 'edit'){
-                        return;
-                    }
                     $set('slug', Str::slug($state));
                 }),
                 TextInput::make('slug')->required()->unique(ignoreRecord: true)->maxLength(150),
